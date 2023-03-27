@@ -3,7 +3,6 @@ const router = express.Router();
 
 const allergens = require("./allergens.json");
 const beers = require("./beers.json");
-
 const model = require("./model.js");
 
 // API backend - path kezelő
