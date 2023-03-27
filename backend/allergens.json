@@ -1,0 +1,16 @@
+{
+  "allergens": [
+    {
+      "id": 1,
+      "name": "gluten"
+    },
+    {
+      "id": 2,
+      "name": "honey"
+    },
+    {
+      "id": 3,
+      "name": "lactose"
+    }
+  ]
+}

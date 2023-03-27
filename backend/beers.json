@@ -1,0 +1,67 @@
+{
+  "beers": [
+    {
+      "id": 1,
+      "name": "Old King Clancy",
+      "brewery": "Mad Scientist",
+      "type": "Maple Syrup Barleywine",
+      "abv": 10.5,
+      "price": 6.5,
+      "allergens": [1]
+    },
+    {
+      "id": 2,
+      "name": "Liquid Cocaine",
+      "brewery": "Mad Scientist",
+      "type": "Imperial IPA",
+      "abv": 9,
+      "price": 2.85,
+      "allergens": [1]
+    },
+    {
+      "id": 3,
+      "name": "Cola O",
+      "brewery": "Mad Scientist",
+      "type": "Braggot",
+      "abv": 8,
+      "price": 3.5,
+      "allergens": [1, 2]
+    },
+    {
+      "id": 4,
+      "name": "Hazy Queen",
+      "brewery": "Horizont Brewing",
+      "type": "New England IPA",
+      "abv": 6,
+      "price": 3.3,
+      "allergens": [1]
+    },
+    {
+      "id": 5,
+      "name": "Mazagran Sour Ale",
+      "brewery": "Horizont Brewing",
+      "type": "Sour Ale",
+      "abv": 6.2,
+      "price": 3.2,
+      "allergens": [1, 3]
+    },
+    {
+      "id": 6,
+      "name": "Beantown Tea Party",
+      "brewery": "Horizont Brewing",
+      "type": "Stout",
+      "abv": 6.2,
+      "price": 3.4,
+      "allergens": [1]
+    },
+    {
+      "id": 7,
+      "name": "Take Me Somewhere Evil",
+      "brewery": "Horizont Brewing",
+      "type": "West Coast IPA",
+      "abv": 6.8,
+      "price": 3.6,
+      "allergens": [1]
+    }
+  ]
+}
