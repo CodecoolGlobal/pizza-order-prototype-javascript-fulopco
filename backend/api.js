@@ -1,14 +1,21 @@
-const express = express();
+const express = require("express");
 const router = express.Router();
 
-const model = require("../model.js");
+const allergens = require("./allergens.json");
+const beers = require("./beers.json");
 
-// API backend
-router.get("/beers");
-router.get("/allergens");
-router.get("/order");
+const model = require("./model.js");
 
-router.get("/beers/list");
+// API backend - path kezelő
+router.get("/beers", (req, res) => {
+  res.send(beers);
+});
 
+router.get("/allergens", (req, res) => {
+  res.send(allergens);
+});
+
+// az order object meghívás
+//router.get("/order");
 
 module.exports = router;
