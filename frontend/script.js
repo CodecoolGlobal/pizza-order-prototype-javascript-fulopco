@@ -148,6 +148,7 @@ async function removeFromCart() {
       const index = order
       objectToSend.beers.splice(objectToSend.beers.indexOf(order), 1)
       console.log(objectToSend);
+      showAndHideOrder()
 
     })
   })
