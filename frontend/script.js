@@ -98,11 +98,10 @@ async function homeButtonHandler() {
 async function amountInputHandler() {
   document.querySelectorAll(".buttonClass").forEach((element, index) => {
     element.addEventListener("click", async () => {
-      let numberInnput = document.getElementById(`beerInputID${index+1}`).value
+      let numberInnput = document.getElementById(`beerInputID${index + 1}`).value
       objectToSend.beers.push({ id: index + 1, amount: numberInnput }); //add to global object
       showAndHideOrder()
-      await orderFormFilling()
-      //createOrderButton();
+      makeHTMLElementsFromOrder()
       console.log(objectToSend);
     });
   });
@@ -115,31 +114,43 @@ function addOrderForm() {
 }
 
 function showAndHideOrder() {
-  if (objectToSend.beers.length) { //add "kosár" to webpage
+  if (objectToSend.beers.length) { //add cart to webpage
     document.getElementById("orderForm").style.visibility = "visible"
   } else {
     document.getElementById("orderForm").style.visibility = "hidden"
   }
 }
 
-async function orderFormFilling () {
-  if(document.getElementById("orders")) {
+
+async function makeHTMLElementsFromOrder() {
+  if (document.getElementById("orders")) {
     document.getElementById("orders").remove()
   }
-  document.getElementById("orderTitle").insertAdjacentHTML("afterend", await makeHTMLElementsFromOrder())
+  const data = await fetchBeers()
+  const elements = objectToSend.beers.map(order => {  //add HTML to cart
+    const sameBeer = data.beers.find((beer) => beer.id === order.id)
+    return `<div id="orderedProduct${sameBeer.id}">
+    <span class="orderedProduct">Prdoduct: ${sameBeer.name} Amount: ${order.amount}</span>
+    <button class="removeButtonClass" id="removeButton${sameBeer.id}">x</button>
+    </div><br>`
+  })
+  document.getElementById("orderTitle").insertAdjacentHTML("afterend", `<div id="orders">${elements.join("")}</div>`)
+  await removeFromCart()
+
 }
 
 
-async function makeHTMLElementsFromOrder() {
-  const data = await fetchBeers()
-  const elements = objectToSend.beers.map(beerObj => {
-    const sameBeer = data.beers.find((beer) => beer.id === beerObj.id)
-    return `<div id="orderedProduct${sameBeer.id}">
-    <span class="orderedProduct">Prdoduct: ${sameBeer.name} Amount: ${beerObj.amount}</span>
-    <button id="removeButton${sameBeer.id}">x</button>
-    </div><br>` 
+async function removeFromCart() {
+  objectToSend.beers.map(order => {
+    console.log(order.id);
+    document.getElementById(`removeButton${order.id}`).addEventListener("click", () => {
+      document.getElementById(`orderedProduct${order.id}`).remove()
+      const index = order
+      objectToSend.beers.splice(objectToSend.beers.indexOf(order), 1)
+      console.log(objectToSend);
+
+    })
   })
-  return `<div id="orders">${elements.join("")}</div>`
 }
 
 
