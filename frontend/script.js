@@ -1,13 +1,15 @@
+let specTime = new Date();
+
 const objectToSend = {
   id: "",
   beers: [
   ],
   date: {
-    year: 2022,
-    month: 6,
-    day: 7,
-    hour: 18,
-    minute: 47,
+    year: specTime.getFullYear(),
+    month: specTime.getMonth() + 1,
+    day: specTime.getDate(),
+    hour: specTime.getHours(),
+    minute: specTime.getMinutes(),
   },
   customer: {
     name: "",
