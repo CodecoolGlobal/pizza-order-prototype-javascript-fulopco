@@ -1,5 +1,4 @@
-const objectToSend =
-{
+const objectToSend = {
   id: "",
   beers: [
     //{id: 1, amount: 2}
@@ -9,18 +8,17 @@ const objectToSend =
     month: 6,
     day: 7,
     hour: 18,
-    minute: 47
+    minute: 47,
   },
   customer: {
     name: "",
     email: "",
     address: {
       city: "",
-      street: ""
-    }
-  }
-}
-
+      street: "",
+    },
+  },
+};
 
 // 1) Sörök meghívása
 async function fetchBeers() {
@@ -52,7 +50,8 @@ async function displayBeers() {
   const rootE = document.getElementById("root");
 
   const beersInHTMLStructure = await Promise.all(
-    data.beers.map( async (beer) =>
+    data.beers.map(
+      async (beer) =>
         `<div id="beer${beer.id}" class="beer">
 
     <div class="picDiv">
@@ -69,12 +68,15 @@ async function displayBeers() {
         <p class="detailsAllergens">Allergens: <span>${await displayAllergensNames(beer)}</span></p>
     </div>
         <button class="buttonClass" id="beerButtonID${beer.id}">Click to order!</button>
-        <input class="inputClass" id="beerInputID${beer.id}" type="number" placeholder="Amount..."></input>
+        <input class="inputClass" id="beerInputID${
+          beer.id
+        }" type="number" placeholder="Amount..."></input>
         </div>`
     )
   );
   rootE.insertAdjacentHTML("beforeend", `<div id="beers">${beersInHTMLStructure.join("")}</div>`);
-  //await addOrderForm();
+  await homeButtonHandler();
+  await amountInputHandler();
 }
 
 // Part of STYLING---------------------------------------------------------------------
@@ -93,23 +95,17 @@ function homeButtonHandler() {
   document.getElementById("homeButton").addEventListener("click", function () {
     location.assign("http://127.0.0.1:9000/beers/list");
   });
-  await amountInputHandler()
 }
 
 async function amountInputHandler() {
-   document.querySelectorAll(".inputClass").forEach((element, index) => {
+  document.querySelectorAll(".inputClass").forEach((element, index) => {
     element.addEventListener("blur", () => {
-    
-    objectToSend.beers.push({ id: index +1, amount: element.value })
-    console.log(objectToSend);
-  })
-  })
+      objectToSend.beers.push({ id: index + 1, amount: element.value });
+      console.log(objectToSend);
+    });
+  });
 }
 
-
-
-// ezt a plusz div-es dolgot nem tudom megoldani, lehet egy új page kellene
-// ami behozza az inputot meg a kosarat
 function addOrderForm() {
   document
     .getElementById("root")
