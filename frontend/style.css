@@ -1,24 +1,26 @@
+html {
+  height: 100%;
+}
 body {
-  /* position: relative; */
-  width: 100vw;
-  height: 800vh;
+  margin: 0;
+  height: 100%;
 }
 
 #root {
-  position: relative;
-  width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 #home {
-  position: absolute;
-  width: 100%;
   height: 100%;
-  padding-top: 9rem;
   text-align: center;
   background-image: url("https://images.unsplash.com/photo-1603989872391-359eb0b42a58?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
-  background-size: 100%;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #greetings {
@@ -50,7 +52,6 @@ body {
     inset 0px -3px 0px #d6d6e7;
   transform: translateY(-2px);
 }
-
 #homeButton:active {
   box-shadow: inset 0px 3px 7px #d6d6e7;
   transform: translateY(2px);
@@ -67,11 +68,9 @@ body {
 #orderForm {
   width: 20%;
   height: 60%;
-  /* position: absolute; */
   position: fixed;
 
   overflow: hidden;
-  /* ezt a cuccot kell állítgatni majd */
   z-index: 10;
 
   background-color: hsl(0, 0%, 100%, 85%);
@@ -86,12 +85,13 @@ body {
 
 #beers {
   width: 100%;
-  height: 100%;
   position: absolute;
   padding-top: 2rem;
   text-align: center;
   background-image: url("https://images.unsplash.com/photo-1571613316887-6f8d5cbf7ef7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80");
-  /* float: left; */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .beer {
