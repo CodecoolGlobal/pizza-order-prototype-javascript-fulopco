@@ -98,6 +98,9 @@ async function amountInputHandler() {
   document.querySelectorAll(".buttonClass").forEach((element, index) => {
     element.addEventListener("click", async () => {
       let numberInnput = document.getElementById(`beerInputID${index + 1}`).value
+      if(numberInnput.toString()[0] !== "0") {
+
+      }
       objectToSend.beers.push({ id: index + 1, amount: numberInnput }); //add to global object
       showAndHideOrder()
       makeHTMLElementsFromOrder()
