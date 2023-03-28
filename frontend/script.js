@@ -30,21 +30,63 @@ async function displayBeers() {
   const beersInHTMLStructure = await Promise.all(
     data.beers.map(
       async (beer) =>
-        `<div id=beer${beer.id}>
+        `<div id=beer${beer.id} class="beer">
+
+    <div class="picDiv">
+    <img src="https://madscientist.hu/wp-content/uploads/2019/04/IMG_20200225_102220-e1666270711222.jpg
+    ">
+    </div>
+    
+    <div class="beerDiv">
     <h1>${beer.name}</h1>
-    <h2>${beer.brewery}</h2>
-    <p class ="detailsType">Style: ${beer.type}</p>
-    <p class ="detailsAbv">ABV: ${beer.abv}%</p>
-    <p class ="detailsPrice">Price: ${beer.price}€</p>
-    <p class ="detailsAllergens">Allergens: ${await displayAllergensNames(beer)}</p>
+    <p><span>by </span><span id="detailsBrew">${beer.brewery}</span></p>
+    <p class ="detailsType">Style: <span>${beer.type}</span></p>
+    <p class ="detailsAbv">ABV: <span>${beer.abv}%</span></p>
+    <p class ="detailsPrice">Price: <span>${beer.price}€</span></p>
+    <p class ="detailsAllergens">Allergens: <span>${await displayAllergensNames(beer)}</span></p>
+    </div>
     </div>`
     )
   );
-  rootE.insertAdjacentHTML("beforeend", beersInHTMLStructure.join(""));
+  rootE.insertAdjacentHTML("beforeend", `<div id="beers">${beersInHTMLStructure.join("")}</div>`);
+  //await addOrderForm();
 }
 
+// Part of STYLING---------------------------------------------------------------------
+
+function displayHomePage() {
+  //const root = document.getElementById("root");
+  const innerHTML = `<div id="home">
+  <p id="greetings">Welcome on CEFRE Shop!<p>
+  <button id="homeButton"> BEERS </button><br>
+  <p id="enjoy">🍺 Enjoy your beer! 🍺</p>
+  </div>`;
+  document.getElementById("root").insertAdjacentHTML("beforeend", innerHTML);
+}
+
+function homeButtonHandler() {
+  document.getElementById("homeButton").addEventListener("click", function () {
+    location.assign("http://127.0.0.1:9000/beers/list");
+  });
+}
+
+// ezt a plusz div-es dolgot nem tudom megoldani, lehet egy új page kellene
+// ami behozza az inputot meg a kosarat
+function addOrderForm() {
+  document
+    .getElementById("root")
+    .insertAdjacentHTML("beforeend", '<div id="orderForm">Your Order</div>');
+}
+//-------------------------------------------------------------------------------
 function main() {
-  displayBeers();
+  console.log(document.baseURI.endsWith("/beers/list"));
+  if (document.baseURI.endsWith("/beers/list")) {
+    displayBeers();
+    addOrderForm();
+  } else {
+    displayHomePage();
+    homeButtonHandler();
+  }
 }
 
 main();
