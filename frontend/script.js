@@ -60,33 +60,24 @@ async function displayBeers() {
         <p class="detailsAbv">ABV: ${beer.abv}%</p>
         <p class="detailsPrice">Price: ${beer.price}€</p>
         <p class="detailsAllergens">Allergens: ${await displayAllergensNames(beer)}</p>
-        ${await buttonHandler(beer.id)}
-        ${await amountInputHandler(beer.id)}
+        <button class="buttonClass" id="beerButtonID${beer.id}">Click to order!</button>
+        <input class="inputClass" id="beerInputID${beer.id}" type="number" placeholder="Amount..."></input>
         </div>`
     )
   );
   rootE.insertAdjacentHTML("beforeend", beersInHTMLStructure.join(""));
+  await amountInputHandler()
 }
 
-async function buttonHandler(IDs) {
-  document.getElementById(`beer${IDs}`)
-  .insertAdjacentHTML("beforeend", `<button id="beerButtonID${IDs}">Click to order!</button>`)
-}
-
-async function amountInputHandler(IDs) {
-  document.getElementById(`beer${IDs}`)
-  .insertAdjacentHTML("beforeend",`<input id="beerInputID${IDs}" type="number" placeholder="Amount..."></input>`)
-
-}
-
-async function fuck (IDs) {
-  document.getElementById(`beerInputID${IDs}`).addEventListener("blur", () => {
-    let valueOfInput = document.getElementById(`beerInputID${IDs}`).value
-    objectToSend.beers.push({ id: IDs, amount: valueOfInput })
+async function amountInputHandler() {
+   document.querySelectorAll(".inputClass").forEach((element, index) => {
+    element.addEventListener("blur", () => {
+    
+    objectToSend.beers.push({ id: index +1, amount: element.value })
     console.log(objectToSend);
   })
+  })
 }
-
 
 
 
