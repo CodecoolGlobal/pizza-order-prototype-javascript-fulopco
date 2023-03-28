@@ -108,8 +108,9 @@ async function amountInputHandler() {
 }
 
 function addOrderForm() {
-  document.getElementById("root").insertAdjacentHTML("beforeend", `<div id="orderForm"><h3 id="orderTitle">Your Order</h3></div>`)
-  document.getElementById("orderForm").style.visibility = "hidden"
+    document.getElementById("root").insertAdjacentHTML("beforeend", `<div id="orderForm"><h3 id="orderTitle">Your Order</h3></div>`)
+    document.getElementById("orderForm").style.visibility = "hidden"
+    createOrderButton();
 }
 
 function showAndHideOrder() {
@@ -154,11 +155,30 @@ async function removeFromCart() {
 
 
 //-------------------------------------------------------------------------------
+
+function createOrderButton (){
+  document.getElementById("orderForm").insertAdjacentHTML("beforeend", `<button id="orderButton">Send Order!!!!!!</button>`)
+}
+
+async function orderButtonHandler(){
+  document.getElementById("orderButton").addEventListener("click", async function () {
+   const url = "/api/order/";
+   const options = {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(objectToSend)
+   }
+   const response = await fetch(url, options);
+   const data = await response.json();
+  })
+};
+
 function main() {
   console.log(document.baseURI.endsWith("/beers/list"));
   if (document.baseURI.endsWith("/beers/list")) {
     displayBeers();
-    addOrderForm()
+    addOrderForm();
+    orderButtonHandler()
   } else {
     displayHomePage();
     homeButtonHandler();

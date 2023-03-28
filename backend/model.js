@@ -3,21 +3,24 @@ const path = require("path");
 
 const filePath = path.join(__dirname, `orders.json`);
 
-// async function fileReader(path) {
-//   return await readFile(path, "utf8");
-// }
+async function fileReader() {
+    const raw = await readFile(filePath, "utf8");
+    return JSON.parse(raw)
+}
 
-// async function fileWriter(path) {
-//   return await writeFile(path, "utf8");
-// }
+async function fileWriter(data) {
+    const raw = JSON.stringify(data, null, 2)
+    await writeFile(filePath, raw);
+}
 
-// itt kezeljük a requesteket
-async function addNewOrder(body){
-const data = readFile(filePath);
-data.orders.push(body);
-writeFile(data);
+async function addNewOrder(body) {
+    const data = await fileReader()
+    console.log(body);
+    data.orders.push(body);
+    await fileWriter(data)
+    return "Add new order"
 };
 
-
-
-module.exports = addNewOrder;
+module.exports = {
+    addNewOrder,
+}
