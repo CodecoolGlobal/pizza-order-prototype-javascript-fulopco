@@ -102,14 +102,16 @@ async function amountInputHandler() {
       objectToSend.beers.push({ id: index + 1, amount: numberInnput }); //add to global object
       showAndHideOrder()
       await orderFormFilling()
+      //createOrderButton();
       console.log(objectToSend);
     });
   });
 }
 
 function addOrderForm() {
-    document.getElementById("root").insertAdjacentHTML("beforeend", `<div id="orderForm">Your Order</div>`)
+    document.getElementById("root").insertAdjacentHTML("beforeend", `<div id="orderForm"><h3 id="orderTitle">Your Order</h3></div>`)
     document.getElementById("orderForm").style.visibility = "hidden"
+    createOrderButton();
 }
 
 function showAndHideOrder() {
@@ -124,7 +126,7 @@ async function orderFormFilling () {
   if(document.getElementById("orders")) {
     document.getElementById("orders").remove()
   }
-  document.getElementById("orderForm").insertAdjacentHTML("beforeend", await makeHTMLElementsFromOrder())
+  document.getElementById("orderTitle").insertAdjacentHTML("afterend", await makeHTMLElementsFromOrder())
 }
 
 
@@ -142,11 +144,30 @@ async function makeHTMLElementsFromOrder() {
 
 
 //-------------------------------------------------------------------------------
+
+function createOrderButton (){
+  document.getElementById("orderForm").insertAdjacentHTML("beforeend", `<button id="orderButton">Send Order!!!!!!</button>`)
+}
+
+async function orderButtonHandler(){
+  document.getElementById("orderButton").addEventListener("click", async function () {
+   const url = "/api/order/";
+   const options = {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(objectToSend)
+   }
+   const response = await fetch(url, options);
+   const data = await response.json();
+  })
+};
+
 function main() {
   console.log(document.baseURI.endsWith("/beers/list"));
   if (document.baseURI.endsWith("/beers/list")) {
     displayBeers();
-    addOrderForm()
+    addOrderForm();
+    orderButtonHandler()
   } else {
     displayHomePage();
     homeButtonHandler();
