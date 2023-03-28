@@ -49,7 +49,10 @@ async function displayBeers() {
     )
   );
   rootE.insertAdjacentHTML("beforeend", `<div id="beers">${beersInHTMLStructure.join("")}</div>`);
+  //await addOrderForm();
 }
+
+// Part of STYLING---------------------------------------------------------------------
 
 function displayHomePage() {
   //const root = document.getElementById("root");
@@ -67,10 +70,19 @@ function homeButtonHandler() {
   });
 }
 
+// ezt a plusz div-es dolgot nem tudom megoldani, lehet egy új page kellene
+// ami behozza az inputot meg a kosarat
+function addOrderForm() {
+  document
+    .getElementById("root")
+    .insertAdjacentHTML("beforeend", '<div id="orderForm">Your Order</div>');
+}
+//-------------------------------------------------------------------------------
 function main() {
   console.log(document.baseURI.endsWith("/beers/list"));
   if (document.baseURI.endsWith("/beers/list")) {
     displayBeers();
+    addOrderForm();
   } else {
     displayHomePage();
     homeButtonHandler();
