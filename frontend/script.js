@@ -54,8 +54,7 @@ async function displayBeers() {
         `<div id="beer${beer.id}" class="beer">
 
     <div class="picDiv">
-    <img src="https://madscientist.hu/wp-content/uploads/2019/04/IMG_20200225_102220-e1666270711222.jpg
-    ">
+    <img src="${beer.src}">
     </div>
     
     <div class="beerDiv">
