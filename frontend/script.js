@@ -130,7 +130,6 @@ function addOrderForm() {
       `<div id="orderForm"><h3 id="orderTitle">Your Order</h3></div>`
     );
   document.getElementById("orderForm").style.visibility = "hidden";
-  createOrderButton();
   addInputFieldsForCostumer();
 }
 
@@ -179,13 +178,16 @@ async function removeFromCart() {
 
 function createOrderButton() {
   document
-    .getElementById("orderForm")
-    .insertAdjacentHTML("beforeend", `<button id="orderButton">Send Order!!!!!!</button>`);
+    .getElementById("inputsForm")
+    .insertAdjacentHTML(
+      "beforeend",
+      `<button id="orderButton" type="button">Send Order!!!!!!</button>`
+    );
 }
 
 // csak akkor lehessen elküldeni, ha az összes adat ki van töltve
 async function orderButtonHandler() {
-  document.getElementById("orderButton").addEventListener("click", async function () {
+  document.getElementById("orderButton").addEventListener("click", async function (event) {
     const url = "/api/order/";
     const options = {
       method: "POST",
@@ -194,20 +196,22 @@ async function orderButtonHandler() {
     };
     const response = await fetch(url, options);
     const data = await response.json();
+    event.preventDefault();
+    location.assign("http://127.0.0.1:9000/beers/end");
   });
 }
 
 function addInputFieldsForCostumer() {
-  document.getElementById("orderButton").insertAdjacentHTML(
-    "beforebegin",
+  document.getElementById("orderForm").insertAdjacentHTML(
+    "beforeend",
     `
-  <div id="inputsDiv">
+  <form id="inputsForm"><div id="inputsDiv">
   <h3>Personal Informations</h3>
-  <div id="nameInputDiv"><span>Your Name: </span><input id="nameInput" class="costumerInput" placeholder="John Smith"></input></div>
-  <div id="emailInputDiv"><span>Your Email: </span><input id="emailInput" class="costumerInput" placeholder="JS@example.com"></input></div>
-  <div id="cityInputDiv"><span>City: </span><input id="cityInput" class="costumerInput" placeholder="London"></input></div>
-  <div id="streetInputDiv"><span>Street: </span><input id="streetInput" class="costumerInput" placeholder="Abbey Road 3"></input></div>
-  </div>
+  <div id="nameInputDiv"><span>Your Name: </span><input id="nameInput" class="costumerInput" placeholder="John Smith" required></input></div>
+  <div id="emailInputDiv"><span>Your Email: </span><input id="emailInput" class="costumerInput" placeholder="JS@example.com" required></input></div>
+  <div id="cityInputDiv"><span>City: </span><input id="cityInput" class="costumerInput" placeholder="London" required></input></div>
+  <div id="streetInputDiv"><span>Street: </span><input id="streetInput" class="costumerInput" placeholder="Abbey Road 3" required></input></div>
+  </div><form>
   `
   );
 }
@@ -233,11 +237,12 @@ function main() {
   if (document.baseURI.endsWith("/beers/list")) {
     displayBeers();
     addOrderForm();
-    orderButtonHandler();
     costumerInputsHandler("nameInput", " ", "name");
     costumerInputsHandler("emailInput", "@", "email");
     costumerInputsHandler("cityInput", "", "address", "city");
     costumerInputsHandler("streetInput", " ", "address", "street");
+    createOrderButton();
+    orderButtonHandler();
   } else {
     displayHomePage();
     homeButtonHandler();
