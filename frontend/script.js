@@ -242,8 +242,15 @@ function costumerInputsHandler(inputID, character, key1, key2) {
   });
 }
 
+function endPageCreator(){
+  document.getElementById("root").insertAdjacentHTML("beforeend", `<div id="endPage"></div>`)
+  document.getElementById("endPage").insertAdjacentHTML("beforeend", `<button id="thankButton"><center>Thank you for your order!</center></button>`)
+  document.getElementById("thankButton").addEventListener("click", function () {
+    location.assign("http://127.0.0.1:9000");
+  })
+}
+
 function main() {
-  console.log(document.baseURI.endsWith("/beers/list"));
   if (document.baseURI.endsWith("/beers/list")) {
     displayBeers();
     addOrderForm();
@@ -253,6 +260,8 @@ function main() {
     costumerInputsHandler("streetInput", " ", "address", "street");
     createOrderButton();
     orderFormHandler();
+  } else if (document.baseURI.endsWith("/beers/end")){
+endPageCreator()
   } else {
     displayHomePage();
     homeButtonHandler();
