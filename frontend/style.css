@@ -23,6 +23,39 @@ body {
   background-attachment: fixed;
 }
 
+#endPage {
+  height: 100%;
+  text-align: center;
+  background-image: url("https://images.everydayhealth.com/images/why-you-could-be-drinking-more-than-you-think-1440x810.jpg");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+  #thankButton {
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    background: #fcfcfd;
+    box-shadow: 0px 2px 4px rgb(45 35 66 / 40%), 0px 7px 13px -3px rgb(45 35 66 / 30%),
+      inset 0px -3px 0px #d6d6e7;
+    height: 60px;
+    padding: 0 32px;
+    font-size: 45px;
+    font-family: Georgia;
+    border-radius: 6px;
+    color: black;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+    padding-bottom: 5px;
+  }
+
+
 #greetings {
   font-size: 3rem;
   font-family: Georgia;
