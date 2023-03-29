@@ -100,14 +100,23 @@ async function homeButtonHandler() {
 async function amountInputHandler() {
   document.querySelectorAll(".buttonClass").forEach((element, index) => {
     element.addEventListener("click", async () => {
-      let numberInnput = document.getElementById(`beerInputID${index + 1}`).value;
-      if (numberInnput.toString()[0] !== "0") {
-        objectToSend.beers.push({ id: index + 1, amount: numberInnput }); //add to global object
+      objectToSend.beers.map((orderElement) => {
+        if (orderElement.id === index + 1) {
+          const indexOfdelete = objectToSend.beers.indexOf(orderElement);
+          objectToSend.beers.splice(indexOfdelete, 1);
+        }
+      });
+      let numberInput = document.getElementById(`beerInputID${index + 1}`).value;
+      console.log(numberInput);
+      if (numberInput.toString()[0] !== "0") {
+        objectToSend.beers.push({ id: index + 1, amount: numberInput }); //add to global object
         showAndHideOrder();
         makeHTMLElementsFromOrder();
         console.log(objectToSend);
+        document.getElementById(`beerInputID${index + 1}`).value = "";
       } else {
-        console.log("ne kezzd nullaval, pls");
+        alert("You can't order zero.");
+        document.getElementById(`beerInputID${index + 1}`).value = "";
       }
     });
   });
