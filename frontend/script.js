@@ -107,7 +107,6 @@ async function amountInputHandler() {
         }
       });
       let numberInput = document.getElementById(`beerInputID${index + 1}`).value;
-      console.log(numberInput);
       if (numberInput.toString()[0] !== "0") {
         objectToSend.beers.push({ id: index + 1, amount: numberInput }); //add to global object
         showAndHideOrder();
@@ -118,9 +117,23 @@ async function amountInputHandler() {
         alert("You can't order zero.");
         document.getElementById(`beerInputID${index + 1}`).value = "";
       }
+      showTotalPrice()
     });
   });
 }
+
+async function showTotalPrice() {
+  let sum = 0
+  const data = await fetchBeers()
+  if (document.getElementById("totalPrice")) {
+    document.getElementById("totalPrice").remove()
+  }
+  objectToSend.beers.map((eachOrder) => {
+   sum += (data.beers[eachOrder.id-1].price * eachOrder.amount)
+  })
+  document.getElementById("inputsDiv").insertAdjacentHTML("beforebegin", `<div id="totalPrice">${sum}€</>`)
+}
+
 
 function addOrderForm() {
   document
@@ -135,8 +148,7 @@ function addOrderForm() {
 }
 
 function showAndHideOrder() {
-  if (objectToSend.beers.length) {
-    //add cart to webpage
+  if (objectToSend.beers.length) {//add cart to webpage
     document.getElementById("orderForm").style.visibility = "visible";
   } else {
     document.getElementById("orderForm").style.visibility = "hidden";
@@ -148,29 +160,26 @@ async function makeHTMLElementsFromOrder() {
     document.getElementById("orders").remove();
   }
   const data = await fetchBeers();
-  const elements = objectToSend.beers.map((order) => {
-    //add HTML to cart
+  const elements = objectToSend.beers.map((order) => { //add HTML to cart
     const sameBeer = data.beers.find((beer) => beer.id === order.id);
     return `<div id="orderedProduct${sameBeer.id}">
     <span class="orderedProduct">Product: ${sameBeer.name} Amount: ${order.amount}</span>
     <button class="removeButtonClass" id="removeButton${sameBeer.id}">x</button>
     </div><br>`;
   });
-  document
-    .getElementById("orderTitle")
-    .insertAdjacentHTML("afterend", `<div id="orders">${elements.join("")}</div>`);
-  await removeFromCart();
+  document.getElementById("orderTitle").insertAdjacentHTML("afterend", `<div id="orders">${elements.join("")}</div>`);
+  await removeFromCart()
 }
 
-async function removeFromCart() {
+async function removeFromCart() {  //remove from global obj + cart
   objectToSend.beers.map((order) => {
-    console.log(order.id);
-    document.getElementById(`removeButton${order.id}`).addEventListener("click", () => {
+    document.getElementById(`removeButton${order.id}`).addEventListener("click", async () => {
       document.getElementById(`orderedProduct${order.id}`).remove();
       const index = order;
       objectToSend.beers.splice(objectToSend.beers.indexOf(order), 1);
-      console.log(objectToSend);
+      showTotalPrice()
       showAndHideOrder();
+      console.log(objectToSend);
     });
   });
 }
