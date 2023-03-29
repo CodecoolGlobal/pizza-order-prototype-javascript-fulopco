@@ -77,7 +77,7 @@
       "type": "Blueberry Infused Double Bock",
       "abv": 9,
       "price": 3.1,
-      "allergens": [],
+      "allergens": [1],
       "src": "https://ogrebacsi.cdn.shoprenter.hu/custom/ogrebacsi/image/cache/w900h900wt1q100/Termekek/SZTAKonnye/szent_andras_konnye_webshop.png?lastmod=1679954384.1666188175"
     },
     {
