@@ -131,7 +131,7 @@ async function showTotalPrice() {
   objectToSend.beers.map((eachOrder) => {
    sum += (data.beers[eachOrder.id-1].price * eachOrder.amount)
   })
-  document.getElementById("inputsDiv").insertAdjacentHTML("beforebegin", `<div id="totalPrice">${sum}€</>`)
+  document.getElementById("inputsDiv").insertAdjacentHTML("beforebegin", `<div id="totalPrice">${sum.toFixed(2)}€</>`)
 }
 
 
