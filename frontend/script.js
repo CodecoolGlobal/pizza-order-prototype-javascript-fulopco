@@ -1,12 +1,14 @@
+let specTime = new Date();
+
 const objectToSend = {
   id: "",
   beers: [],
   date: {
-    year: 2022,
-    month: 6,
-    day: 7,
-    hour: 18,
-    minute: 47,
+    year: specTime.getFullYear(),
+    month: specTime.getMonth() + 1,
+    day: specTime.getDate(),
+    hour: specTime.getHours(),
+    minute: specTime.getMinutes(),
   },
   customer: {
     name: "",
@@ -59,27 +61,21 @@ async function displayBeers() {
     <div class="beerDiv">
         <h1>${beer.name}</h1>
         <p><span>by </span><span id="detailsBrew">${beer.brewery}</span></p>
-        <p class="detailsType">Style: <span>${beer.type}</span></p>
-        <p class="detailsAbv">ABV: <span>${beer.abv}%</span></p>
-        <p class="detailsPrice">Price: <span>${beer.price}€</span></p>
-        <p class="detailsAllergens">Allergens: <span>${await displayAllergensNames(
+        <p class="detailsType">Style: <span class="boldSpan">${beer.type}</span></p>
+        <p class="detailsAbv">ABV: <span class="boldSpan">${beer.abv}%</span></p>
+        <p class="detailsPrice">Price: <span class="boldSpan">${beer.price}€</span></p>
+        <p class="detailsAllergens">Allergens: <span class="boldSpan">${await displayAllergensNames(
           beer
         )}</span></p>
     </div>
         <input class="inputClass" id="beerInputID${
           beer.id
         }" type="number" placeholder="Amount..."></input>
-        <button class="buttonClass" id="beerButtonID${
-          beer.id
-        }">Click to order!</button>
+        <button class="buttonClass" id="beerButtonID${beer.id}">Click to order!</button>
         </div>`
     )
   );
-  rootE.insertAdjacentHTML(
-    "beforeend",
-    `<div id="beers">${beersInHTMLStructure.join("")}</div>`
-  );
-  //await homeButtonHandler();
+  rootE.insertAdjacentHTML("beforeend", `<div id="beers">${beersInHTMLStructure.join("")}</div>`);
   await amountInputHandler();
 }
 
@@ -88,7 +84,7 @@ async function displayBeers() {
 function displayHomePage() {
   //const root = document.getElementById("root");
   const innerHTML = `<div id="home">
-  <p id="greetings">Welcome on CEFRE Shop!<p>
+  <p id="greetings">Welcome to CEFRE Shop!<p>
   <button id="homeButton"> BEERS </button><br>
   <p id="enjoy">🍺 Enjoy your beer! 🍺</p>
   </div>`;
@@ -118,24 +114,37 @@ async function amountInputHandler() {
         showAndHideOrder();
         makeHTMLElementsFromOrder();
         console.log(objectToSend);
-       document.getElementById(`beerInputID${index + 1}`).value = "";
+        document.getElementById(`beerInputID${index + 1}`).value = "";
       } else {
         alert("You can't order zero or less...");
         document.getElementById(`beerInputID${index + 1}`).value = "";
       }
+      showTotalPrice();
     });
   });
 }
 
+async function showTotalPrice() {
+  let sum = 0;
+  const data = await fetchBeers();
+  if (document.getElementById("totalPrice")) {
+    document.getElementById("totalPrice").remove();
+  }
+  objectToSend.beers.map((eachOrder) => {
+   sum += (data.beers[eachOrder.id-1].price * eachOrder.amount)
+  })
+  document.getElementById("inputsDiv").insertAdjacentHTML("beforebegin", `<div id="totalPrice">${sum.toFixed(2)}€</>`)
+}
+
 function addOrderForm() {
-  document
-    .getElementById("root")
-    .insertAdjacentHTML(
-      "beforeend",
-      `<div id="orderForm"><h3 id="orderTitle">Your Order</h3></div>`
-    );
+  document.getElementById("root").insertAdjacentHTML(
+    "beforeend",
+    `<div id="orderForm">
+      <h3 id="orderTitle">Your Order</h3>
+      <p id="orderTitleUnderLine" class="underLine"></p>
+      </div>`
+  );
   document.getElementById("orderForm").style.visibility = "hidden";
-  createOrderButton();
 }
 
 function showAndHideOrder() {
@@ -155,32 +164,28 @@ async function makeHTMLElementsFromOrder() {
   const elements = objectToSend.beers.map((order) => {
     //add HTML to cart
     const sameBeer = data.beers.find((beer) => beer.id === order.id);
-    return `<div id="orderedProduct${sameBeer.id}">
-    <span class="orderedProduct">Prdoduct: ${sameBeer.name} Amount: ${order.amount}</span>
+    return `<div id="orderedProduct${sameBeer.id}" class="ordered">
+    <span class="orderedProduct"><span class="boldSpan">${sameBeer.name}</span> Amount: <span class="boldSpan">${order.amount}</span></span>
     <button class="removeButtonClass" id="removeButton${sameBeer.id}">x</button>
-    </div><br>`;
+    </div>`;
   });
   document
-    .getElementById("orderTitle")
-    .insertAdjacentHTML(
-      "afterend",
-      `<div id="orders">${elements.join("")}</div>`
-    );
+    .getElementById("orderTitleUnderLine")
+    .insertAdjacentHTML("afterend", `<div id="orders">${elements.join("")}</div>`);
   await removeFromCart();
 }
 
 async function removeFromCart() {
+  //remove from global obj + cart
   objectToSend.beers.map((order) => {
-    console.log(order.id);
-    document
-      .getElementById(`removeButton${order.id}`)
-      .addEventListener("click", () => {
-        document.getElementById(`orderedProduct${order.id}`).remove();
-        const index = order;
-        objectToSend.beers.splice(objectToSend.beers.indexOf(order), 1);
-        console.log(objectToSend);
-        showAndHideOrder();
-      });
+    document.getElementById(`removeButton${order.id}`).addEventListener("click", async () => {
+      document.getElementById(`orderedProduct${order.id}`).remove();
+      const index = order;
+      objectToSend.beers.splice(objectToSend.beers.indexOf(order), 1);
+      showTotalPrice();
+      showAndHideOrder();
+      console.log(objectToSend);
+    });
   });
 }
 
@@ -188,34 +193,78 @@ async function removeFromCart() {
 
 function createOrderButton() {
   document
-    .getElementById("orderForm")
-    .insertAdjacentHTML(
-      "beforeend",
-      `<button id="orderButton">Send Order!!!!!!</button>`
-    );
+    .getElementById("inputsForm")
+    .insertAdjacentHTML("beforeend", `<button id="orderButton" type="submit">Send Order!</button>`);
 }
 
-async function orderButtonHandler() {
-  document
-    .getElementById("orderButton")
-    .addEventListener("click", async function () {
-      const url = "/api/order/";
-      const options = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(objectToSend),
-      };
-      const response = await fetch(url, options);
-      const data = await response.json();
-    });
+// csak akkor lehessen elküldeni, ha az összes adat ki van töltve
+async function orderFormHandler() {
+  document.getElementById("orderForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const url = "/api/order/";
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(objectToSend),
+    };
+    const response = await fetch(url, options);
+    const data = await response.json();
+    location.assign("http://127.0.0.1:9000/beers/end");
+  });
+}
+
+function addInputFieldsForCostumer() {
+  document.getElementById("orderForm").insertAdjacentHTML(
+    "beforeend",
+    `
+  <form id="inputsForm"><div id="inputsDiv">
+  <h3>Personal Informations</h3>
+  <p class="underLine"></p>
+  <div id="nameInputDiv" class="inputF"><span class="boldSpan">Your Name: </span><input id="nameInput" class="costumerInput" type="text" placeholder="John Smith" required></input></div>
+  <div id="emailInputDiv" class="inputF"><span class="boldSpan">Your Email: </span><input id="emailInput" class="costumerInput" type="email" placeholder="JS@example.com" required></input></div>
+  <div id="cityInputDiv" class="inputF"><span class="boldSpan">City: </span><input id="cityInput" class="costumerInput" type="text" placeholder="London" required></input></div>
+  <div id="streetInputDiv" class="inputF"><span class="boldSpan">Street: </span><input id="streetInput" class="costumerInput" type="text" placeholder="Abbey Road 3" required></input></div>
+  </div><form>
+  `
+  );
+}
+
+function costumerInputsHandler(inputID, character, key1, key2) {
+  document.getElementById(inputID).addEventListener("change", function () {
+    if (document.getElementById(inputID).value.includes(character)) {
+      if (key2) {
+        objectToSend.customer[key1][key2] = document.getElementById(inputID).value;
+      } else {
+        objectToSend.customer[key1] = document.getElementById(inputID).value;
+      }
+    } else if (key2) {
+      alert(`Please fill your ${key2} in a correct form!`);
+    } else {
+      alert(`Please fill your ${key1} in a correct form!`);
+    }
+  });
+}
+
+function endPageCreator(){
+  document.getElementById("root").insertAdjacentHTML("beforeend", `<div id="endPage"></div>`)
+  document.getElementById("endPage").insertAdjacentHTML("beforeend", `<button id="thankButton"><center>Thank you for your order!</center></button>`)
+  document.getElementById("thankButton").addEventListener("click", function () {
+    location.assign("http://127.0.0.1:9000");
+  })
 }
 
 function main() {
-  console.log(document.baseURI.endsWith("/beers/list"));
   if (document.baseURI.endsWith("/beers/list")) {
     displayBeers();
     addOrderForm();
-    orderButtonHandler();
+    addInputFieldsForCostumer();
+    costumerInputsHandler("nameInput", " ", "name");
+    costumerInputsHandler("cityInput", "", "address", "city");
+    costumerInputsHandler("streetInput", " ", "address", "street");
+    createOrderButton();
+    orderFormHandler();
+  } else if (document.baseURI.endsWith("/beers/end")){
+endPageCreator()
   } else {
     displayHomePage();
     homeButtonHandler();

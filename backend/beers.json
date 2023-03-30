@@ -12,6 +12,16 @@
     },
     {
       "id": 2,
+      "name": "Beet Blood",
+      "brewery": "Hoptop Brewery",
+      "type": "Gose",
+      "abv": 5,
+      "price": 2.6,
+      "allergens": [1,3],
+      "src": "https://hoptop.hu/img/47152/craft-20/craft-20.jpg?time=1672656527"
+    },
+    {
+      "id": 3,
       "name": "Liquid Cocaine",
       "brewery": "Mad Scientist",
       "type": "Imperial IPA",
@@ -21,7 +31,7 @@
       "src": "https://madscientist.hu/wp-content/uploads/2019/04/IMG_20200225_102220-e1666270711222.jpg"
     },
     {
-      "id": 3,
+      "id": 4,
       "name": "Cola O",
       "brewery": "Mad Scientist",
       "type": "Braggot",
@@ -31,9 +41,19 @@
       "src": "https://madscientist.hu/wp-content/uploads/2021/10/P1960765.jpg"
     },
     {
-      "id": 4,
+      "id": 5,
+      "name": "Málnás Búza",
+      "brewery": "Szent András Brewery",
+      "type": "Raspberry Infused Wheat Beer",
+      "abv": 4.9,
+      "price": 2.7,
+      "allergens": [1],
+      "src": "https://ogrebacsi.cdn.shoprenter.hu/custom/ogrebacsi/image/cache/w900h900wt1q100/Termekek/Malnas/malnas_webshop.png?lastmod=1679585223.1666188175"
+    },
+    {
+      "id": 6,
       "name": "Hazy Queen",
-      "brewery": "Horizont Brewing",
+      "brewery": "Horizont Brewery",
       "type": "New England IPA",
       "abv": 6,
       "price": 3.3,
@@ -41,9 +61,9 @@
       "src": "https://horizontbrewing.cdn.shoprenter.hu/custom/horizontbrewing/image/cache/w499h700wt1q100/dobozos_termekkep_hazy_499x700.jpg?lastmod=1679732960.1629269927"
     },
     {
-      "id": 5,
+      "id": 7,
       "name": "Mazagran Sour Ale",
-      "brewery": "Horizont Brewing",
+      "brewery": "Horizont Brewery",
       "type": "Sour Ale",
       "abv": 6.2,
       "price": 3.2,
@@ -51,9 +71,29 @@
       "src": "https://horizontbrewing.cdn.shoprenter.hu/custom/horizontbrewing/image/cache/w499h700wt1q100/SS16_marzagen_web.png?lastmod=1679895124.1629269927"
     },
     {
-      "id": 6,
+      "id": 8,
+      "name": "Szent András Könnye",
+      "brewery": "Szent András Brewery",
+      "type": "Blueberry Infused Double Bock",
+      "abv": 9,
+      "price": 3.1,
+      "allergens": [1],
+      "src": "https://ogrebacsi.cdn.shoprenter.hu/custom/ogrebacsi/image/cache/w900h900wt1q100/Termekek/SZTAKonnye/szent_andras_konnye_webshop.png?lastmod=1679954384.1666188175"
+    },
+    {
+      "id": 9,
+      "name": "Csíki Gyömbér Chili Sör",
+      "brewery": "Csíki Sör",
+      "type": "Ginger-Chili Infused Lager",
+      "abv": 4.2,
+      "price": 2.2,
+      "allergens": [1],
+      "src": "https://scontent-vie1-1.xx.fbcdn.net/v/t39.30808-6/273569545_660264992065486_6950313512352275232_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=7kKc1tTF5-AAX8ijMAx&_nc_ht=scontent-vie1-1.xx&oh=00_AfCxWcLBd-3F7DRFjjfE-lL8TiLD8jXi3fRe1nPtWuHvYg&oe=6429A437"
+    },
+    {
+      "id": 10,
       "name": "Beantown Tea Party",
-      "brewery": "Horizont Brewing",
+      "brewery": "Horizont Brewery",
       "type": "Stout",
       "abv": 6.2,
       "price": 3.4,
@@ -61,9 +101,19 @@
       "src": "https://horizontbrewing.cdn.shoprenter.hu/custom/horizontbrewing/image/cache/w499h700wt1q100/termekkep/termekkep_Beantown.png?lastmod=1679895124.1629269927"
     },
     {
-      "id": 7,
+      "id": 11,
+      "name": "Earl Grey Buddy",
+      "brewery": "Hoptop Brewery",
+      "type": "West Coast IPA",
+      "abv": 6.6,
+      "price": 3.1,
+      "allergens": [1],
+      "src": "https://hoptop.hu/img/47152/craft171/craft171.jpg?time=1675776260"
+    },
+    {
+      "id": 12,
       "name": "Take Me Somewhere Evil",
-      "brewery": "Horizont Brewing",
+      "brewery": "Horizont Brewery",
       "type": "West Coast IPA",
       "abv": 6.8,
       "price": 3.6,
