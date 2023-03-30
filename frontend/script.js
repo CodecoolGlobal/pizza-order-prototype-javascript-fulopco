@@ -113,14 +113,14 @@ async function amountInputHandler() {
       });
       let numberInput = document.getElementById(`beerInputID${index + 1}`).value;
       console.log(numberInput)
-      if (numberInput.toString()[0] !== "0") {
+      if (numberInput[0] > 0) {
         objectToSend.beers.push({ id: index + 1, amount: numberInput }); //add to global object
         showAndHideOrder();
         makeHTMLElementsFromOrder();
         console.log(objectToSend);
        document.getElementById(`beerInputID${index + 1}`).value = "";
       } else {
-        alert("You can't order zero.");
+        alert("You can't order zero or less...");
         document.getElementById(`beerInputID${index + 1}`).value = "";
       }
     });
