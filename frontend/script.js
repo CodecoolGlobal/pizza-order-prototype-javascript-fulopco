@@ -34,6 +34,12 @@ async function fetchAllergens() {
   return data;
 }
 
+async function fetchOrders() {
+  const response = await fetch("/api/order");
+  const data = await response.json();
+  return data;
+}
+
 async function displayAllergensNames(beer) {
   const allergens = await fetchAllergens();
 
@@ -130,9 +136,11 @@ async function showTotalPrice() {
     document.getElementById("totalPrice").remove();
   }
   objectToSend.beers.map((eachOrder) => {
-   sum += (data.beers[eachOrder.id-1].price * eachOrder.amount)
-  })
-  document.getElementById("inputsDiv").insertAdjacentHTML("beforebegin", `<div id="totalPrice">${sum.toFixed(2)}€</>`)
+    sum += data.beers[eachOrder.id - 1].price * eachOrder.amount;
+  });
+  document
+    .getElementById("inputsDiv")
+    .insertAdjacentHTML("beforebegin", `<div id="totalPrice">Total Price: ${sum.toFixed(2)}€</>`);
 }
 
 function addOrderForm() {
@@ -200,6 +208,8 @@ function createOrderButton() {
 async function orderFormHandler() {
   document.getElementById("orderForm").addEventListener("submit", async function (event) {
     event.preventDefault();
+    const orderData = await fetchOrders();
+    objectToSend.id = orderData.orders.length + 1;
     const url = "/api/order/";
     const options = {
       method: "POST",
@@ -244,12 +254,17 @@ function costumerInputsHandler(inputID, character, key1, key2) {
   });
 }
 
-function endPageCreator(){
-  document.getElementById("root").insertAdjacentHTML("beforeend", `<div id="endPage"></div>`)
-  document.getElementById("endPage").insertAdjacentHTML("beforeend", `<button id="thankButton"><center>Thank you for your order!</center></button>`)
+function endPageCreator() {
+  document.getElementById("root").insertAdjacentHTML("beforeend", `<div id="endPage"></div>`);
+  document
+    .getElementById("endPage")
+    .insertAdjacentHTML(
+      "beforeend",
+      `<button id="thankButton"><center>Thank you for your order!</center></button>`
+    );
   document.getElementById("thankButton").addEventListener("click", function () {
     location.assign("http://127.0.0.1:9000");
-  })
+  });
 }
 
 function main() {
@@ -262,8 +277,8 @@ function main() {
     costumerInputsHandler("streetInput", " ", "address", "street");
     createOrderButton();
     orderFormHandler();
-  } else if (document.baseURI.endsWith("/beers/end")){
-endPageCreator()
+  } else if (document.baseURI.endsWith("/beers/end")) {
+    endPageCreator();
   } else {
     displayHomePage();
     homeButtonHandler();
