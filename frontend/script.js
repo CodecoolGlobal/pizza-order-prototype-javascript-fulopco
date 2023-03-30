@@ -61,10 +61,12 @@ async function displayBeers() {
     <div class="beerDiv">
         <h1>${beer.name}</h1>
         <p><span>by </span><span id="detailsBrew">${beer.brewery}</span></p>
-        <p class="detailsType">Style: <span>${beer.type}</span></p>
-        <p class="detailsAbv">ABV: <span>${beer.abv}%</span></p>
-        <p class="detailsPrice">Price: <span>${beer.price}€</span></p>
-        <p class="detailsAllergens">Allergens: <span>${await displayAllergensNames(beer)}</span></p>
+        <p class="detailsType">Style: <span class="boldSpan">${beer.type}</span></p>
+        <p class="detailsAbv">ABV: <span class="boldSpan">${beer.abv}%</span></p>
+        <p class="detailsPrice">Price: <span class="boldSpan">${beer.price}€</span></p>
+        <p class="detailsAllergens">Allergens: <span class="boldSpan">${await displayAllergensNames(
+          beer
+        )}</span></p>
     </div>
         <input class="inputClass" id="beerInputID${
           beer.id
@@ -132,16 +134,17 @@ async function showTotalPrice() {
   });
   document
     .getElementById("inputsDiv")
-    .insertAdjacentHTML("beforebegin", `<div id="totalPrice">${sum}€</>`);
+    .insertAdjacentHTML("beforebegin", `<div id="totalPrice">Total Price: ${sum}€</>`);
 }
 
 function addOrderForm() {
-  document
-    .getElementById("root")
-    .insertAdjacentHTML(
-      "beforeend",
-      `<div id="orderForm"><h3 id="orderTitle">Your Order</h3></div>`
-    );
+  document.getElementById("root").insertAdjacentHTML(
+    "beforeend",
+    `<div id="orderForm">
+      <h3 id="orderTitle">Your Order</h3>
+      <p id="orderTitleUnderLine" class="underLine"></p>
+      </div>`
+  );
   document.getElementById("orderForm").style.visibility = "hidden";
 }
 
@@ -162,13 +165,13 @@ async function makeHTMLElementsFromOrder() {
   const elements = objectToSend.beers.map((order) => {
     //add HTML to cart
     const sameBeer = data.beers.find((beer) => beer.id === order.id);
-    return `<div id="orderedProduct${sameBeer.id}">
-    <span class="orderedProduct">Product: ${sameBeer.name} Amount: ${order.amount}</span>
+    return `<div id="orderedProduct${sameBeer.id}" class="ordered">
+    <span class="orderedProduct"><span class="boldSpan">${sameBeer.name}</span> Amount: <span class="boldSpan">${order.amount}</span></span>
     <button class="removeButtonClass" id="removeButton${sameBeer.id}">x</button>
-    </div><br>`;
+    </div>`;
   });
   document
-    .getElementById("orderTitle")
+    .getElementById("orderTitleUnderLine")
     .insertAdjacentHTML("afterend", `<div id="orders">${elements.join("")}</div>`);
   await removeFromCart();
 }
@@ -217,10 +220,11 @@ function addInputFieldsForCostumer() {
     `
   <form id="inputsForm"><div id="inputsDiv">
   <h3>Personal Informations</h3>
-  <div id="nameInputDiv"><span>Your Name: </span><input id="nameInput" class="costumerInput" type="text" placeholder="John Smith" required></input></div>
-  <div id="emailInputDiv"><span>Your Email: </span><input id="emailInput" class="costumerInput" type="email" placeholder="JS@example.com" required></input></div>
-  <div id="cityInputDiv"><span>City: </span><input id="cityInput" class="costumerInput" type="text" placeholder="London" required></input></div>
-  <div id="streetInputDiv"><span>Street: </span><input id="streetInput" class="costumerInput" type="text" placeholder="Abbey Road 3" required></input></div>
+  <p class="underLine"></p>
+  <div id="nameInputDiv" class="inputF"><span class="boldSpan">Your Name: </span><input id="nameInput" class="costumerInput" type="text" placeholder="John Smith" required></input></div>
+  <div id="emailInputDiv" class="inputF"><span class="boldSpan">Your Email: </span><input id="emailInput" class="costumerInput" type="email" placeholder="JS@example.com" required></input></div>
+  <div id="cityInputDiv" class="inputF"><span class="boldSpan">City: </span><input id="cityInput" class="costumerInput" type="text" placeholder="London" required></input></div>
+  <div id="streetInputDiv" class="inputF"><span class="boldSpan">Street: </span><input id="streetInput" class="costumerInput" type="text" placeholder="Abbey Road 3" required></input></div>
   </div><form>
   `
   );

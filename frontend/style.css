@@ -99,11 +99,10 @@ body {
 }
 
 #orderForm {
-  width: 20%;
-  height: 80%;
+  width: 19rem;
   position: fixed;
-
-  overflow: hidden;
+  max-height: 90%;
+  overflow: scroll;
   z-index: 10;
 
   background-color: hsl(0, 0%, 100%, 85%);
@@ -112,8 +111,7 @@ body {
   border-radius: 0.7rem;
   margin: auto;
   margin-top: 2rem;
-  text-align: center;
-  padding-top: 1rem;
+  /* text-align: center; */
 }
 
 #beers {
@@ -128,7 +126,7 @@ body {
 }
 
 .beer {
-  background-color: hsl(0, 0%, 100%, 85%);
+  background-color: hsl(0, 0%, 100%, 70%);
   box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
   font-size: 1rem;
   width: 50rem;
@@ -159,11 +157,137 @@ img {
   text-align: center;
 }
 
-span {
+.boldSpan {
   font-weight: bold;
 }
 
 #detailsBrew {
   font-size: 2em;
   font-weight: bold;
+}
+
+h3 {
+  font-family: Georgia;
+  margin-bottom: 0.5rem;
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+input {
+  display: inline-block;
+  padding: 0 16px 0 12px;
+  /* width: 100%; */
+  line-height: 30px;
+  height: 32px;
+  border: 1px solid #dddbda;
+  border-radius: 4px;
+  background-color: #fff;
+  color: rgb(8, 7, 7);
+  transition: border 0.1s linear, background-color 0.1s linear;
+}
+
+input:focus {
+  border-color: #1b96ff;
+  color: var(--sds-c-input-text-color-focus);
+  box-shadow: rgb(1, 118, 211) 0px 0px 3px 0px;
+}
+
+.buttonClass {
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px 0 rgb(213 217 217 / 50%);
+  background: #fff;
+  border: 1px solid #d5d9d9;
+  font-size: 13px;
+  height: 31px;
+  padding: 0 11px;
+  text-align: center;
+  font-weight: 400;
+  color: #0f1111;
+}
+
+.buttonClass:hover {
+  background-color: #f7fafa;
+  border-color: #d5d9d9;
+}
+
+#orderButton {
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0 56px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 7px;
+  font-weight: 400;
+  font-size: 16px;
+  background: #fff;
+  color: #e01515a2;
+  box-shadow: 0 4px 14px 0 rgb(0 0 0 / 10%);
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  font-family: Georgia;
+}
+
+#orderButton:hover {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 20px rgb(93 93 93 / 23%);
+}
+
+#totalPrice {
+  color: #e01515a2;
+  font-weight: bold;
+}
+
+.removeButtonClass {
+  display: inline-block;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  height: 22px;
+  padding: 0px 9px;
+  border-radius: 100px;
+  background-color: #e0151559;
+  color: rgb(8 7 7);
+  font-size: 12px;
+  float: right;
+  margin-right: 1rem;
+}
+
+.removeButtonClass:hover {
+  background-color: #2222221a;
+}
+
+.inputF {
+  margin-bottom: 0.5rem;
+  text-align: right;
+  margin-right: 1.5rem;
+}
+
+#inputsDiv {
+  text-align: center;
+}
+
+.underLine {
+  border: 1px solid #828080c9;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 0;
+}
+
+.orderedProduct {
+  text-align: left;
+  margin-left: 1rem;
+}
+
+#inputsForm {
+  text-align: center;
+}
+
+.ordered {
+  margin-bottom: 1rem;
 }
