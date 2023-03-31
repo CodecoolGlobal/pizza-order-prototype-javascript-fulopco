@@ -249,6 +249,7 @@ function main() {
     addInputFieldsForCostumer();
     createOrderButton();
     costumerInputsHandler("nameInput", " ", "name");
+    costumerInputsHandler("emailInput", "", "email");
     costumerInputsHandler("cityInput", "", "address", "city");
     costumerInputsHandler("streetInput", " ", "address", "street");
   } else if (document.baseURI.endsWith("/beers/end")) {
