@@ -2,6 +2,7 @@
 
 [![Contributors][contributors-shield]][contributors-url]
 [![LinkedIn][linkedin-shield-eszter]][linkedin-url-eszter]
+[![LinkedIn][linkedin-shield-eszter]][linkedin-url-cori]
 
 <div align="center">
   <a href="https://github.com/CodecoolGlobal/pizza-order-prototype-javascript-fulopco">
@@ -108,6 +109,7 @@ Follow this guide to run and try the application.
 ## Contact
 
 Eszter Gyöngyvér Erdélyi -  esztergyerdelyi@gmail.com
+Corinna Fülöp - fulopcori@icloud.com
 
 Project Link: https://github.com/CodecoolGlobal/pizza-order-prototype-javascript-fulopco
 
@@ -121,6 +123,7 @@ Project Link: https://github.com/CodecoolGlobal/pizza-order-prototype-javascript
 
 [linkedin-shield-eszter]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url-eszter]: https://www.linkedin.com/in/eszter-erdelyi/
+[linkedin-url-cori]: https://www.linkedin.com/in/corinna-f%C3%BCl%C3%B6p-b1b76b250/
 
 [product-main]: https://i.imgur.com/yb0n9N7.png
 [product-list]: https://i.imgur.com/OgivA9S.jpg
